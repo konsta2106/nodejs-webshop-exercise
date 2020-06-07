@@ -16,6 +16,7 @@
     "express-handlebars": "^3.0.0",
     "glob": "^7.1.6",
     "is-regex": "^1.0.5",
+    "mongodb": "^3.5.8",
     "pug": "^2.0.3",
     "resolve": "^1.15.1"
   },
