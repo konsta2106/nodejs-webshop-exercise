@@ -1,4 +1,5 @@
 const mongo = require('../util/database')
+const mongoDB = require('mongodb')
 
 module.exports = class Product {
     constructor(title, imageUrl, description, price) {
@@ -25,7 +26,7 @@ module.exports = class Product {
         .find()
         .toArray()
         .then(result => {
-            console.log('inside product model fetchall', result)
+            // console.log('inside product model fetchall', result)
             return result
         })
         .catch(err => console.log(err))
@@ -34,10 +35,10 @@ module.exports = class Product {
     static findProductById(prodId) {
         const db = mongo.getDb()
         return db.collection('products')
-        .find({_id: prodId})
+        .find({_id: new mongoDB.ObjectID(prodId)})
         .next()
         .then(product => {
-            console.log(product)
+            console.log('inside findbyid product', product)
             return product
         })
         .catch(err => console.log(err))
