@@ -1,10 +1,11 @@
 const { MongoClient } = require("mongodb");
+require('dotenv').config()
 
 let _db
 
 const mongoConnect = callback => {
     // Replace the following with your Atlas connection string                                                                                                                                        
-    const url = "mongodb+srv://konsta:konkom221@gettingstarted-8mbad.azure.mongodb.net/test?retryWrites=true&w=majority";
+    const url = process.env.DB_URL
     const client = new MongoClient(url, { useUnifiedTopology: true });
     
     client.connect()

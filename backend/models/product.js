@@ -25,8 +25,20 @@ module.exports = class Product {
         .find()
         .toArray()
         .then(result => {
-            console.log(result)
+            console.log('inside product model fetchall', result)
             return result
+        })
+        .catch(err => console.log(err))
+    }
+
+    static findProductById(prodId) {
+        const db = mongo.getDb()
+        return db.collection('products')
+        .find({_id: prodId})
+        .next()
+        .then(product => {
+            console.log(product)
+            return product
         })
         .catch(err => console.log(err))
     }
