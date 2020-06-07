@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const errorController = require('./controllers/error')
-const mongoConnect = require('./util/database')
+const mongo = require('./util/database')
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -21,7 +21,6 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-mongoConnect((client) => {
-  console.log(client)
+mongo.mongoConnect(() => {
   app.listen(port, () => console.log('App listening on port ' + port));
 })  

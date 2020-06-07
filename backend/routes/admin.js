@@ -18,11 +18,11 @@ router.post('/add-product', adminController.addProduct);
 
 router.get('/admin-product', adminController.getAdminProducts);
 
-router.get('/edit-product/:productId', adminController.getEditProduct)
+// router.get('/edit-product/:productId', adminController.getEditProduct)
 
-router.post('/edit-product', adminController.postEditProduct)
+// router.post('/edit-product', adminController.postEditProduct)
 
-router.post('/delete', adminController.postDelete)
+// router.post('/delete', adminController.postDelete)
 
 module.exports = router;
 

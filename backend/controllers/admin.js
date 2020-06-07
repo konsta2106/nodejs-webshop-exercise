@@ -29,51 +29,55 @@ exports.addProduct = (req, res, next) => {
   const imgUrl = req.body.imageUrl
   const price = req.body.price
   const description = req.body.description
-  const product = new Product(null, title, imgUrl, description, price)
+  const product = new Product(title, imgUrl, description, price)
   product.save()
-  res.redirect('/');
-}
-
-exports.getEditProduct = (req, res, next) => {
-  const editMode = req.query.edit
-  if (!editMode) {
-    return res.redirect('/')
-  }
-  const prodId = req.params.productId
-  console.log(prodId)
-  Product.findProductById(prodId, product => {
-    if (!product) {
-      res.redirect('/')
-    }
-    res.render('admin/edit-product', {
-      pageTitle: 'Edit Product',
-      path: '/admin/edit-product',
-      formsCSS: true,
-      productCSS: true,
-      activeAddProduct: true,
-      editing: editMode,
-      product: product,
-    });
+  .then(result => {
+    console.log('Product created')
+    res.redirect('/admin/admin-product')
   })
+  .catch(err => console.log(err))
 }
 
-exports.postEditProduct = (req, res, next) => {
-  console.log(req.body)
-  const prodId = req.body.productId
-  const updatedTitle = req.body.title
-  const updatedPrice = req.body.price
-  const updatedImageUrl = req.body.imageUrl
-  const updatedDescription = req.body.description
-  const updatedProduct = new Product(prodId, updatedTitle, updatedImageUrl, updatedDescription, updatedPrice)
-  updatedProduct.save()
-  res.redirect('/admin/admin-product')
+// exports.getEditProduct = (req, res, next) => {
+//   const editMode = req.query.edit
+//   if (!editMode) {
+//     return res.redirect('/')
+//   }
+//   const prodId = req.params.productId
+//   console.log(prodId)
+//   Product.findProductById(prodId, product => {
+//     if (!product) {
+//       res.redirect('/')
+//     }
+//     res.render('admin/edit-product', {
+//       pageTitle: 'Edit Product',
+//       path: '/admin/edit-product',
+//       formsCSS: true,
+//       productCSS: true,
+//       activeAddProduct: true,
+//       editing: editMode,
+//       product: product,
+//     });
+//   })
+// }
 
-}
+// exports.postEditProduct = (req, res, next) => {
+//   console.log(req.body)
+//   const prodId = req.body.productId
+//   const updatedTitle = req.body.title
+//   const updatedPrice = req.body.price
+//   const updatedImageUrl = req.body.imageUrl
+//   const updatedDescription = req.body.description
+//   const updatedProduct = new Product(prodId, updatedTitle, updatedImageUrl, updatedDescription, updatedPrice)
+//   updatedProduct.save()
+//   res.redirect('/admin/admin-product')
 
-exports.postDelete = (req, res, next) => {
-   const prodId = req.body.productId
-   console.log(prodId)
-   Product.delete(prodId)
-   res.redirect('/admin/admin-product')
-}
+// }
+
+// exports.postDelete = (req, res, next) => {
+//    const prodId = req.body.productId
+//    console.log(prodId)
+//    Product.delete(prodId)
+//    res.redirect('/admin/admin-product')
+// }
 

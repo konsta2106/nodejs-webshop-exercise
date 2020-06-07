@@ -1,6 +1,6 @@
 const { MongoClient } = require("mongodb");
-const db = require('mongodb')
 
+let _db
 
 const mongoConnect = callback => {
     // Replace the following with your Atlas connection string                                                                                                                                        
@@ -10,10 +10,23 @@ const mongoConnect = callback => {
     client.connect()
     .then(client => {
         console.log('Connected')
-        callback(client)
+        _db = client.db()
+        callback()
     })
-    .catch(error => console.log(error))
-
+    .catch(error => {
+        console.log(error)
+        throw error
+    })
 }
 
-module.exports = mongoConnect
+const getDb = () => {
+    if(_db) {
+        return _db
+    }
+    throw 'No database found'
+}
+
+module.exports = {
+    mongoConnect,
+    getDb
+}

@@ -2,17 +2,17 @@ const Product = require('../models/product')
 const Cart = require('../models/cart')
 
  exports.getProducts = (req, res, next) => {
-    Product.fetchall((products) => {
+    Product.fetchall()
+    .then(products => {
       res.render('shop/products', {
         prods: products,
         pageTitle: 'Shop',
         path: '/shop/products',
-        hasProducts: products.length > 0,
-        activeShop: true,
-        productCSS: true
       })
     })
-  }
+    .catch(err => console.log(err))
+ }
+
 
   exports.getProductDetail = (req, res, next) => {
     const productId = req.params.productId
@@ -67,17 +67,17 @@ const Cart = require('../models/cart')
   }
 
   exports.getIndex = (req, res, next) => {
-    Product.fetchall((products) => {
+    Product.fetchall()
+    .then(products => {
       res.render('shop/index', {
         prods: products,
-        pageTitle: 'index',
+        pageTitle: 'Shop',
         path: '/',
-        hasProducts: products.length > 0,
-        activeShop: true,
-        productCSS: true
       })
     })
-  }
+    .catch(err => console.log(err))
+ }
+
   exports.getCheckout = (req, res, next) => {
     res.render('shop/checkout', {
       pageTitle: 'checkout',
