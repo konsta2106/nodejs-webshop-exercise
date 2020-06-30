@@ -14,7 +14,6 @@ exports.getAddProductPage = (req, res, next) => {
 exports.getAdminProducts = (req, res, next) => {
   Product.fetchall()
     .then(products => {
-      console.log(products)
       res.render('admin/admin-product', {
         prods: products,
         pageTitle: 'admin prod',
@@ -41,28 +40,26 @@ exports.addProduct = (req, res, next) => {
     .catch(err => console.log(err))
 }
 
-// exports.getEditProduct = (req, res, next) => {
-//   const editMode = req.query.edit
-//   if (!editMode) {
-//     return res.redirect('/')
-//   }
-//   const prodId = req.params.productId
-//   console.log(prodId)
-//   Product.findProductById(prodId, product => {
-//     if (!product) {
-//       res.redirect('/')
-//     }
-//     res.render('admin/edit-product', {
-//       pageTitle: 'Edit Product',
-//       path: '/admin/edit-product',
-//       formsCSS: true,
-//       productCSS: true,
-//       activeAddProduct: true,
-//       editing: editMode,
-//       product: product,
-//     });
-//   })
-// }
+exports.getEditProduct = (req, res, next) => {
+  const editMode = req.query.edit
+  if (!editMode) {
+    return res.redirect('/')
+  }
+  const prodId = req.params.productId
+  Product.findProductById(prodId)
+    .then(product => {
+      res.render('admin/edit-product', {
+        pageTitle: 'Edit Product',
+        path: '/admin/edit-product',
+        formsCSS: true,
+        productCSS: true,
+        activeAddProduct: true,
+        editing: editMode,
+        product: product,
+      });
+    })
+
+}
 
 // exports.postEditProduct = (req, res, next) => {
 //   console.log(req.body)
