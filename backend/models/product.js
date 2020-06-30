@@ -13,7 +13,6 @@ module.exports = class Product {
         return db.collection('products')
         .insertOne(this)
         .then(result => {
-            console.log(result)
         })
         .catch(err => {
             console.log(err)
@@ -21,12 +20,13 @@ module.exports = class Product {
     }
 
     static fetchall() {
+        console.log('inside fetchall')
         const db = mongo.getDb()
         return db.collection('products')
         .find()
         .toArray()
         .then(result => {
-            // console.log('inside product model fetchall', result)
+            console.log(result)
             return result
         })
         .catch(err => console.log(err))
@@ -38,7 +38,6 @@ module.exports = class Product {
         .find({_id: new mongoDB.ObjectID(prodId)})
         .next()
         .then(product => {
-            console.log('inside findbyid product', product)
             return product
         })
         .catch(err => console.log(err))

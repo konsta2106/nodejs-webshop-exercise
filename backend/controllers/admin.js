@@ -12,16 +12,19 @@ exports.getAddProductPage = (req, res, next) => {
 }
 
 exports.getAdminProducts = (req, res, next) => {
-  Product.fetchall((products) => {
-    res.render('admin/admin-product', {
-      prods: products,
-      pageTitle: 'admin prod',
-      path: '/admin/admin-product',
-      hasProducts: products.length > 0,
-      activeShop: true,
-      productCSS: true
+  Product.fetchall()
+    .then(products => {
+      console.log(products)
+      res.render('admin/admin-product', {
+        prods: products,
+        pageTitle: 'admin prod',
+        path: '/admin/admin-product',
+        hasProducts: products.length > 0,
+        activeShop: true,
+        productCSS: true
+      })
     })
-  })
+
 }
 
 exports.addProduct = (req, res, next) => {
@@ -31,11 +34,11 @@ exports.addProduct = (req, res, next) => {
   const description = req.body.description
   const product = new Product(title, imgUrl, description, price)
   product.save()
-  .then(result => {
-    console.log('Product created')
-    res.redirect('/admin/admin-product')
-  })
-  .catch(err => console.log(err))
+    .then(result => {
+      console.log('Product created')
+      res.redirect('/admin/admin-product')
+    })
+    .catch(err => console.log(err))
 }
 
 // exports.getEditProduct = (req, res, next) => {

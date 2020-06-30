@@ -18,13 +18,11 @@ exports.getProductDetail = (req, res, next) => {
   const productId = req.params.productId
   Product.findProductById(productId)
     .then(product => {
-      console.log(product)
       res.render('shop/product-details', {
         prods: product,
         pageTitle: 'Details',
         path: '/shop/product-info'
       })
-      console.log(product)
     })
 }
 
