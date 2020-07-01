@@ -4,4 +4,4 @@ Exercices - In progress
 
 Next to do: Add MongoDB and Mongoose to project
 
-Deployed to Heroku
+Deploy to Heroku for testing - https://webshop-exercise.herokuapp.com/
