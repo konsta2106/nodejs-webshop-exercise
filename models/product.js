@@ -35,6 +35,7 @@ module.exports = class Product {
             .find()
             .toArray()
             .then(result => {
+                console.log(result)
                 return result
             })
             .catch(err => console.log(err))
