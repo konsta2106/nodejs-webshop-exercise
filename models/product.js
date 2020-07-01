@@ -18,7 +18,6 @@ module.exports = class Product {
                 .collection('products')
                 .updateOne({ _id: this._id }, { $set: this })
         } else {
-            console.log(this)
             dbOp = db.collection('products').insertOne(this)
         }
         return dbOp
@@ -35,7 +34,6 @@ module.exports = class Product {
             .find()
             .toArray()
             .then(result => {
-                console.log(result)
                 return result
             })
             .catch(err => console.log(err))
