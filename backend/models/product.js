@@ -7,7 +7,7 @@ module.exports = class Product {
         this.imageUrl = imageUrl,
         this.description = description,
         this.price = price,
-        this._id = id
+        this._id =  new mongoDB.ObjectID(id)
     }
     
     save() {
@@ -16,7 +16,7 @@ module.exports = class Product {
         if (this._id) {
             dbOp = db
                 .collection('products')
-                .updateOne({ _id: new mongoDB.ObjectID(this._id) }, { $set: this })
+                .updateOne({ _id: this._id }, { $set: this })
         } else {
             dbOp = db
                 .collection('products')
