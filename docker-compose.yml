@@ -1,0 +1,13 @@
+version: "3"
+services: 
+    nodejs-webshop:
+        build:
+            context: .
+            dockerfile: Dockerfile.dev
+        image: nodejs-webshop
+        container_name: nodejs-webshop
+        ports:
+            - "8000:8000"
+        volumes:
+            - /usr/src/app/node_modules
+            - .:/usr/src/app
